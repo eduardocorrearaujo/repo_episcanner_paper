@@ -1,5 +1,4 @@
-Code and data of the "Large-scale Epidemiological modeling: Scanning for Mosquito-Borne Diseases Spatio-temporal Patterns in
-Brazil" paper
+# Code and data of the "Large-scale Epidemiological modeling: Scanning for Mosquito-Borne Diseases Spatio-temporal Patterns in Brazil" paper
 
 The Episcanner methodology implemented in the paper are implemented in the script: https://github.com/AlertaDengue/episcanner-downloader/blob/main/src/scanner/scanner.py that creates the data plotted in the [online dashboard](https://info.dengue.mat.br/epi-scanner/). To run the script is necessary to have the infodengue incidence data that can be accessed [here](https://api.mosqlimate.org/docs/datastore/GET/infodengue/#usage_examples). 
 
