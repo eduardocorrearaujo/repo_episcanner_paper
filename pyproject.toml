@@ -2,7 +2,7 @@
 name = "repo-episcanner-paper"
 version = "0.1.0"
 description = "code repository for paper"
-authors = ["Flávio Codeço Coelho <fccoelho@gmail.com>"]
+authors = ["Eduardo Correa Araújo","Flávio Codeço Coelho <fccoelho@gmail.com>"]
 license = "CC-by"
 readme = "README.md"
 package-mode = false
