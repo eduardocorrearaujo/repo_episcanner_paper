@@ -44,3 +44,4 @@ The table of features used in the HGBR model is presented in the table below:
 | latitude of  the city center.                                                                                                         | spatial         |
 | longitude of the city center.                                                                                                         | spatial         |
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13236547.svg)](https://doi.org/10.5281/zenodo.13236547)
