@@ -4,6 +4,7 @@ import seaborn as sns
 import geopandas as gpd 
 import matplotlib.pyplot as plt 
 import matplotlib.dates as mdates
+from sklearn.metrics import mean_absolute_percentage_error
 myFmt = mdates.DateFormatter('%b\n %Y')
 
 MEDIUM_SIZE = 12
@@ -149,10 +150,12 @@ def plot_curve(ax, df_state,  pars):
     df_state.index = pd.to_datetime(df_state.index)
     
     ax.fill_between(df_state.index, df_state['casos_cum'], alpha=0.3, color='r', label=f'data_{year}')
-    ax.plot(df_state.index, curve,label='model')
+    ax.plot(df_state.index, curve,label='model', linewidth = 2)
     ax.axvline(df_state.iloc[round(pars['peak_week'])].name, color = 'red', ls = '--' ,label = 'peak_week')
     
     ax.plot(df_state.index, np.abs(curve - df_state.casos_cum), marker='+', label='Abs. residuals')
+    mape = mean_absolute_percentage_error(df_state['casos_cum'], curve)
+    ax.plot([], [], ' ', label=f"MAPE: {round(100*mape,2)}%")
     ax.legend()
     ax.xaxis.set_major_formatter(myFmt)
     
