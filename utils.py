@@ -4,6 +4,7 @@ import seaborn as sns
 import geopandas as gpd 
 import matplotlib.pyplot as plt 
 import matplotlib.dates as mdates
+from sklearn.metrics import mean_absolute_percentage_error
 myFmt = mdates.DateFormatter('%b\n %Y')
 
 MEDIUM_SIZE = 12
@@ -11,29 +12,29 @@ LARGE_SIZE = 14
 
 predictors = [
 'year',
-'casos_01',
-'casos_1_3',
-'casos_1_4',
-'populacao_1',
+'cases_jan',
+'cases_3rdQ',
+'cases_4thQ',
+'population',
 'peak_week_1',
-'R0_1',
-'t_end_1', 
-'ep_dur_1',
-'dummy_ep',      
-'temp_med_4',
-'temp_amp_4',
-'temp_max_4',
-'temp_min_4', 
-'umid_min_4',
-'umid_max_4', 'umid_amp_4', 'enso_4',
-'precip_tot_4', 'rainy_day_4', 'thr_temp_min_4', 'thr_temp_amp_4', 'thr_umid_med_4',      
-'temp_med_1_current',
-'temp_amp_1_current',
-'temp_max_1_current',
-'temp_min_1_current',
-'precip_tot_1_current',
-'rainy_day_1_current',
-'enso_1_current', 
+'R0',
+'t_end', 
+'ep_dur',     
+'mean_temp_4thQ',
+'temp_range_4thQ',
+'max_temp_4thQ',
+'min_temp_4thQ', 
+'min_humid_4thQ',
+'max_humid_4thQ', 'humid_range_4thQ', 'enso_4thQ',
+'tot_precip_4thQ', 'rainy_days_4thQ',
+'days_min_temp_4thQ', 'days_temp_range_4thQ', 'days_mean_humid_4thQ',      
+'jan_mean_temp',
+'jan_temp_range',
+'jan_max_temp',
+'jan_min_temp',
+'jan_tot_precip',
+'rainy_days_jan',
+'enso_jan', 
 'latitude', 'longitude']
 
 def plot_hist(ax, df, region):
@@ -149,10 +150,12 @@ def plot_curve(ax, df_state,  pars):
     df_state.index = pd.to_datetime(df_state.index)
     
     ax.fill_between(df_state.index, df_state['casos_cum'], alpha=0.3, color='r', label=f'data_{year}')
-    ax.plot(df_state.index, curve,label='model')
+    ax.plot(df_state.index, curve,label='model', linewidth = 2)
     ax.axvline(df_state.iloc[round(pars['peak_week'])].name, color = 'red', ls = '--' ,label = 'peak_week')
     
     ax.plot(df_state.index, np.abs(curve - df_state.casos_cum), marker='+', label='Abs. residuals')
+    mape = mean_absolute_percentage_error(df_state['casos_cum'], curve)
+    ax.plot([], [], ' ', label=f"MAPE: {round(100*mape,2)}%")
     ax.legend()
     ax.xaxis.set_major_formatter(myFmt)
     
